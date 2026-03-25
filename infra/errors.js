@@ -55,6 +55,7 @@ export class ValidationError extends Error {
   }
 }
 
+<<<<<<< HEAD
 export class NotFoundError extends Error {
   constructor({ cause, message, action }) {
     super(message || "Não foi possível encontrar este recurso no sistema", {
@@ -75,6 +76,8 @@ export class NotFoundError extends Error {
   }
 }
 
+=======
+>>>>>>> d1ac6396db2aca10f1723a9fe2bbb5f91a88892e
 export class MethodNotAllowedError extends Error {
   constructor() {
     super("Método não permitido para este endpoint");

@@ -1,4 +1,5 @@
 import database from "infra/database";
+<<<<<<< HEAD
 import { ValidationError, NotFoundError } from "infra/errors";
 
 async function findOneByUsername(username) {
@@ -31,6 +32,9 @@ async function findOneByUsername(username) {
     return results.rows[0];
   }
 }
+=======
+import { ValidationError } from "infra/errors";
+>>>>>>> d1ac6396db2aca10f1723a9fe2bbb5f91a88892e
 
 async function create(userInputValues) {
   await validateUniqueEmail(userInputValues.email);
@@ -100,7 +104,10 @@ async function create(userInputValues) {
 
 const user = {
   create,
+<<<<<<< HEAD
   findOneByUsername,
+=======
+>>>>>>> d1ac6396db2aca10f1723a9fe2bbb5f91a88892e
 };
 
 export default user;
