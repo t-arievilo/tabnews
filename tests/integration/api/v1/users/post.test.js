@@ -1,4 +1,6 @@
 import orchestrator from "tests/orchestrator";
+import user from "models/user";
+import password from "models/password";
 import { version as uuidVersion } from "uuid";
 
 beforeAll(async () => {
@@ -30,7 +32,7 @@ describe("POST /api/v1/users", () => {
         id: responseBody.id,
         username: "thiagooliveira",
         email: "thiago@teste.com",
-        password: "teste123",
+        password: responseBody.password,
         create_at: responseBody.create_at,
         updated_at: responseBody.updated_at,
       });
@@ -38,6 +40,20 @@ describe("POST /api/v1/users", () => {
       expect(uuidVersion(responseBody.id)).toBe(4);
       expect(Date.parse(responseBody.create_at)).not.toBeNaN();
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
+
+      const userInDatabase = await user.findOneByUsername("thiagooliveira");
+      const correctPasswordMatch = await password.compare(
+        "teste123",
+        userInDatabase.password,
+      );
+
+      const incorrectPasswordMatch = await password.compare(
+        "teste1232",
+        userInDatabase.password,
+      );
+
+      expect(correctPasswordMatch).toBe(true);
+      expect(incorrectPasswordMatch).toBe(false);
     });
     test("With duplicated email", async () => {
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
@@ -73,7 +89,7 @@ describe("POST /api/v1/users", () => {
       expect(response2Body).toEqual({
         name: "ValidationError",
         message: "O email informado já está sendo utilizado",
-        action: "Utilize outro email para realizar o cadastro",
+        action: "Utilize outro email para esta operação",
         status_code: 400,
       });
     });
@@ -111,7 +127,7 @@ describe("POST /api/v1/users", () => {
       expect(response2Body).toEqual({
         name: "ValidationError",
         message: "O username informado já está sendo utilizado",
-        action: "Utilize outro username para realizar o cadastro",
+        action: "Utilize outro username para esta operação",
         status_code: 400,
       });
     });
