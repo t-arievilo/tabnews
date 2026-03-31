@@ -33,12 +33,12 @@ describe("POST /api/v1/users", () => {
         username: "thiagooliveira",
         email: "thiago@teste.com",
         password: responseBody.password,
-        create_at: responseBody.create_at,
+        created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
 
       expect(uuidVersion(responseBody.id)).toBe(4);
-      expect(Date.parse(responseBody.create_at)).not.toBeNaN();
+      expect(Date.parse(responseBody.created_at)).not.toBeNaN();
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
 
       const userInDatabase = await user.findOneByUsername("thiagooliveira");
