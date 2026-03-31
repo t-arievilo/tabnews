@@ -121,15 +121,15 @@ describe("PATCH /api/v1/users/[username]", () => {
         username: "uniqueUser2",
         email: "uniqueUser1@teste.com",
         password: responseBody.password,
-        create_at: responseBody.create_at,
+        created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
 
       expect(uuidVersion(responseBody.id)).toBe(4);
-      expect(Date.parse(responseBody.create_at)).not.toBeNaN();
+      expect(Date.parse(responseBody.created_at)).not.toBeNaN();
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
 
-      expect(responseBody.updated_at > responseBody.create_at).toBe(true);
+      expect(responseBody.updated_at > responseBody.created_at).toBe(true);
     });
     test("With unique 'email'", async () => {
       const user1Response = await fetch("http://localhost:3000/api/v1/users", {
@@ -168,15 +168,15 @@ describe("PATCH /api/v1/users/[username]", () => {
         username: "uniqueEmail1",
         email: "uniqueEmail2@teste.com",
         password: responseBody.password,
-        create_at: responseBody.create_at,
+        created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
 
       expect(uuidVersion(responseBody.id)).toBe(4);
-      expect(Date.parse(responseBody.create_at)).not.toBeNaN();
+      expect(Date.parse(responseBody.created_at)).not.toBeNaN();
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
 
-      expect(responseBody.updated_at > responseBody.create_at).toBe(true);
+      expect(responseBody.updated_at > responseBody.created_at).toBe(true);
     });
     test("With new 'password'", async () => {
       const user1Response = await fetch("http://localhost:3000/api/v1/users", {
@@ -215,15 +215,15 @@ describe("PATCH /api/v1/users/[username]", () => {
         username: "newPassword1",
         email: "newPassword1@teste.com",
         password: responseBody.password,
-        create_at: responseBody.create_at,
+        created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
       });
 
       expect(uuidVersion(responseBody.id)).toBe(4);
-      expect(Date.parse(responseBody.create_at)).not.toBeNaN();
+      expect(Date.parse(responseBody.created_at)).not.toBeNaN();
       expect(Date.parse(responseBody.updated_at)).not.toBeNaN();
 
-      expect(responseBody.updated_at > responseBody.create_at).toBe(true);
+      expect(responseBody.updated_at > responseBody.created_at).toBe(true);
 
       const userInDatabase = await user.findOneByUsername("newPassword1");
       const correctPasswordMatch = await password.compare(
