@@ -2,7 +2,6 @@ import session from "models/session";
 import orchestrator from "tests/orchestrator.js";
 import { version as uuidVersion } from "uuid";
 import setCookieParser from "set-cookie-parser";
-import user from "pages/api/v1/user";
 
 beforeAll(async () => {
   await orchestrator.waitForAllServices();
